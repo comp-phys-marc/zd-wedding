@@ -15,8 +15,7 @@
                             name="name"
                             class="form-input"
                             placeholder="e.g., Jane &amp; John Doe"
-                            :myProp="guestName"
-                            @update:myProp="updateGuestName"
+                            v-model="guestName"
                             required
                         />
                     </div>
@@ -28,21 +27,17 @@
                             class="form-input"
                             rows="4"
                             placeholder="Share a memory or a wish for our future..."
-                            :myProp="guestMessage"
-                            @update:myProp="updateGuestMessage"
+                            v-model="guestMessage"
                             required
                         ></textarea>
                     </div>
-                    <div>
-                        <button
-                            type="submit"
-                            id="sendMessageBtn"
-                            class="bg-teal text-cream hover:bg-teal-dark w-full rounded-lg px-8 py-3 font-semibold tracking-widest uppercase shadow-lg transition-colors duration-300"
-                            :disabled="sending"
-                        >
-                            {{ sending ? 'Sending...' : 'Send Message' }}
-                        </button>
-                    </div>
+                    <button
+                        type="submit"
+                        id="sendMessageBtn"
+                        class="cursor-pointer bg-teal text-cream hover:bg-teal-dark w-full rounded-lg px-8 py-3 font-semibold tracking-widest uppercase shadow-lg transition-colors duration-300"
+                    >
+                        {{ sending ? 'Sending...' : 'Send Message' }}
+                    </button>
                     <div id="form-status" class="h-6">
                         <p v-if="formStatus" :class="formStatusClass">{{ formStatus }}</p>
                     </div>
@@ -56,9 +51,7 @@
                 </div>
                 <!-- Example Entry -->
                 <div class="border-teal/20 rounded-lg border bg-white/50 p-4">
-                    <p class="text-gray-700 italic">
-                        "Wishing you both a lifetime of love and happiness. We are so thrilled to celebrate with you!"
-                    </p>
+                    <p class="text-gray-700 italic">"Wishing you both a lifetime of love and happiness. We are so thrilled to celebrate with you!"</p>
                     <p class="text-teal mt-2 text-right text-sm font-semibold">- With love, The Smiths</p>
                 </div>
             </div>
@@ -68,64 +61,67 @@
 
 <script lang="ts">
 export default {
-  name: 'GuestbookPage',
-  data() {
-    return {
-      guestName: '',
-      guestMessage: '',
-      guestbookEntries: [],
-      sending: false,
-      formStatus: '',
-      formStatusClass: '',
-    };
-  },
-  methods: {
-    async submitGuestbook() {
-      if (!this.guestName.trim() || !this.guestMessage.trim()) return;
-      this.sending = true;
-      this.formStatus = '';
-      this.formStatusClass = '';
-
-      // Add entry instantly
-      this.guestbookEntries.unshift({ name: this.guestName, message: this.guestMessage });
-
-      try {
-        const formData = new FormData();
-        formData.append('name', this.guestName);
-        formData.append('message', this.guestMessage);
-
-        const response = await fetch('http://www.zdwedding.com/guestbook', {
-          method: 'POST',
-          body: formData,
-          headers: { Accept: 'application/json' },
-        });
-
-        if (response.ok) {
-          this.formStatus = 'Thank you! Your message has been sent.';
-          this.formStatusClass = 'text-green-600 text-center text-sm mt-2';
-          this.guestName = '';
-          this.guestMessage = '';
-        } else {
-          const data = await response.json();
-          if (data.errors) {
-            this.formStatus = data.errors.map(e => e.message).join(', ');
-          } else {
-            this.formStatus = 'Oops! There was a problem submitting your form.';
-          }
-          this.formStatusClass = 'text-red-600 text-center text-sm mt-2';
-          this.guestbookEntries.shift(); // Remove the entry
-        }
-      } catch (e) {
-        this.formStatus = 'Oops! There was a problem submitting your form.';
-        this.formStatusClass = 'text-red-600 text-center text-sm mt-2';
-        this.guestbookEntries.shift();
-      } finally {
-        this.sending = false;
-        setTimeout(() => {
-          this.formStatus = '';
-        }, 5000);
-      }
+    name: 'GuestbookPage',
+    data() {
+        return {
+            guestName: '',
+            guestMessage: '',
+            guestbookEntries: [],
+            sending: false,
+            formStatus: '',
+            formStatusClass: '',
+        };
     },
-  },
+    methods: {
+        async submitGuestbook() {
+            console.log("submitting");
+            console.log(this.guestName);
+            console.log(this.guestMessage);
+            if (!this.guestName.trim() || !this.guestMessage.trim()) return;
+            this.sending = true;
+            this.formStatus = '';
+            this.formStatusClass = '';
+
+            // Add entry instantly
+            this.guestbookEntries.unshift({ name: this.guestName, message: this.guestMessage });
+
+            try {
+                const formData = new FormData();
+                formData.append('name', this.guestName);
+                formData.append('message', this.guestMessage);
+
+                const response = await fetch('http://www.zdwedding.com/guestbook', {
+                    method: 'POST',
+                    body: formData,
+                    headers: { Accept: 'application/json' },
+                });
+
+                if (response.ok) {
+                    this.formStatus = 'Thank you! Your message has been sent.';
+                    this.formStatusClass = 'text-green-600 text-center text-sm mt-2';
+                    this.guestName = '';
+                    this.guestMessage = '';
+                } else {
+                    const data = await response.json();
+                    if (data.errors) {
+                        this.formStatus = data.errors.map((e) => e.message).join(', ');
+                    } else {
+                        this.formStatus = 'Oops! There was a problem submitting your form.';
+                    }
+                    this.formStatusClass = 'text-red-600 text-center text-sm mt-2';
+                    this.guestbookEntries.shift(); // Remove the entry
+                }
+            } catch (e) {
+                this.formStatus = 'Oops! There was a problem submitting your form.';
+                this.formStatusClass = 'text-red-600 text-center text-sm mt-2';
+                this.guestbookEntries.shift();
+            } finally {
+                this.sending = false;
+                setTimeout(() => {
+                    this.formStatus = '';
+                }, 5000);
+            }
+        },
+    },
 };
 </script>
