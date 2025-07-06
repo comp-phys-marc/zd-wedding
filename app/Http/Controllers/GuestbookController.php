@@ -7,6 +7,14 @@ use App\Models\GuestbookEntry;
 
 class GuestbookController extends Controller
 {
+
+    public function index()
+    {
+        $entries = GuestbookEntry::latest()->get();
+
+        return response()->json(['data' => $entries]);
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [

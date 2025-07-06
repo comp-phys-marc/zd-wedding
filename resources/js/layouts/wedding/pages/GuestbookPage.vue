@@ -74,7 +74,21 @@ export default {
             formStatusClass: '',
         };
     },
+    mounted() {
+        this.fetchEntries();
+    },
     methods: {
+        async fetchEntries() {
+            try {
+                const response = await fetch('http://www.zdwedding.com/guestbook');
+                if (response.ok) {
+                    const data = await response.json();
+                    this.guestbookEntries = data.data;
+                }
+            } catch (error) {
+                console.error('Failed to fetch guestbook entries:', error);
+            }
+        },
         async submitGuestbook() {
             if (!this.guestName.trim() || !this.guestMessage.trim()) return;
             this.sending = true;
