@@ -76,9 +76,6 @@ export default {
     },
     methods: {
         async submitGuestbook() {
-            console.log("submitting");
-            console.log(this.guestName);
-            console.log(this.guestMessage);
             if (!this.guestName.trim() || !this.guestMessage.trim()) return;
             this.sending = true;
             this.formStatus = '';
@@ -91,11 +88,15 @@ export default {
                 const formData = new FormData();
                 formData.append('name', this.guestName);
                 formData.append('message', this.guestMessage);
+                formData.append('_token', this.csrf);
 
                 const response = await fetch('http://www.zdwedding.com/guestbook', {
                     method: 'POST',
                     body: formData,
-                    headers: { Accept: 'application/json' },
+                    headers: {
+                        Accept: 'application/json',
+                        'X-CSRF-TOKEN': this.csrf
+                    },
                 });
 
                 if (response.ok) {
