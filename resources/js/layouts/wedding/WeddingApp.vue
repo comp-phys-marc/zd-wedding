@@ -7,14 +7,7 @@
           <StoryPage v-show="activeTab === 'page-story'" />
           <VenuePage v-show="activeTab === 'page-venue'" />
           <PhotosPage v-show="activeTab === 'page-photos'" />
-          <GuestbookPage
-            v-show="activeTab === 'page-guestbook'"
-            :guestbookEntries="guestbookEntries"
-            :sending="sending"
-            :formStatus="formStatus"
-            :formStatusClass="formStatusClass"
-            @submit-guestbook="submitGuestbook"
-          />
+          <GuestbookPage v-show="activeTab === 'page-guestbook'" />
           <RegistryPage v-show="activeTab === 'page-registry'" />
         </main>
       </div>
@@ -30,6 +23,7 @@ import VenuePage from './pages/VenuePage.vue';
 import PhotosPage from './pages/PhotosPage.vue';
 import GuestbookPage from './pages/GuestbookPage.vue';
 import RegistryPage from './pages/RegistryPage.vue';
+
 export default {
   name: 'WeddingApp',
   components: {
@@ -52,12 +46,6 @@ export default {
         { id: 'page-registry', label: 'Registry' },
       ],
       activeTab: 'page-home',
-      guestName: '',
-      guestMessage: '',
-      guestbookEntries: [],
-      sending: false,
-      formStatus: '',
-      formStatusClass: '',
     };
   },
   computed: {
@@ -88,48 +76,6 @@ export default {
     imgFallback(event, text) {
       event.target.onerror = null;
       event.target.src = `https://placehold.co/1200x800/F7F4EC/0F5298?text=${text}`;
-    },
-    async submitGuestbook() {
-      if (!this.guestName.trim() || !this.guestMessage.trim()) return;
-      this.sending = true;
-      this.formStatus = '';
-      this.formStatusClass = '';
-      // Add entry instantly
-      this.guestbookEntries.unshift({ name: this.guestName, message: this.guestMessage });
-      try {
-        const formData = new FormData();
-        formData.append('name', this.guestName);
-        formData.append('message', this.guestMessage);
-        const response = await fetch('http://www.zdwedding.com/guestbook', {
-          method: 'POST',
-          body: formData,
-          headers: { Accept: 'application/json' },
-        });
-        if (response.ok) {
-          this.formStatus = 'Thank you! Your message has been sent.';
-          this.formStatusClass = 'text-green-600 text-center text-sm mt-2';
-          this.guestName = '';
-          this.guestMessage = '';
-        } else {
-          const data = await response.json();
-          if (data.errors) {
-            this.formStatus = data.errors.map(e => e.message).join(', ');
-          } else {
-            this.formStatus = 'Oops! There was a problem submitting your form.';
-          }
-          this.formStatusClass = 'text-red-600 text-center text-sm mt-2';
-          this.guestbookEntries.shift(); // Remove the entry
-        }
-      } catch (e) {
-        this.formStatus = 'Oops! There was a problem submitting your form.';
-        this.formStatusClass = 'text-red-600 text-center text-sm mt-2';
-        this.guestbookEntries.shift();
-      } finally {
-        this.sending = false;
-        setTimeout(() => {
-          this.formStatus = '';
-        }, 5000);
-      }
     },
   },
 };
