@@ -1,28 +1,50 @@
 <template>
-  <div class="max-w-4xl mx-auto">
-    <Card>
-      <section class="py-16 text-center">
-        <h2 class="text-5xl font-semibold mb-4">Registry</h2>
-        <p class="text-lg text-gray-700 mb-10">
-          Your presence at our wedding is the greatest gift we could ask for. However, if you wish to honor us with a gift, we have registered at the following places for items we would love to have in our home.
-        </p>
-        <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
-          <a href="#" target="_blank" class="inline-block border border-teal text-teal font-semibold tracking-widest uppercase py-3 px-12 rounded-full hover:bg-teal hover:text-cream transition-colors duration-300 shadow-sm">
-            Crate &amp; Barrel
-          </a>
-          <a href="#" target="_blank" class="inline-block border border-teal text-teal font-semibold tracking-widest uppercase py-3 px-12 rounded-full hover:bg-teal hover:text-cream transition-colors duration-300 shadow-sm">
-            Zola
-          </a>
-        </div>
-      </section>
-    </Card>
-  </div>
+    <div class="mx-auto max-w-4xl">
+        <Card>
+            <section class="py-16 text-center">
+                <h2 class="mb-4 text-5xl font-semibold">Registry</h2>
+                <p class="mb-10 text-lg text-gray-700">
+                    We're incredibly excited about the journey ahead as we prepare to start our married life.
+                </p>
+                <p class="mb-10 text-lg text-gray-700">
+                    As we are in the midst of moving to
+                    Lesotho in Africa to continue serving with Mission Aviation Fellowship, we've decided not to have a traditional registry. Instead,
+                    for those who wish to honor us with a gift, please know that a contribution to help build our future together would be deeply
+                    appreciated.
+                </p>
+                <p class="mb-10 text-lg text-gray-700">
+                    Any gift would be put towards our honeymoon, travels, and/or household items as we settle into our new life in
+                    Lesotho.
+                </p>
+                <p class="mb-10 text-lg text-gray-700">
+                    Thank you for being a part of our journey!
+                </p>
+                <div class="flex flex-col items-center justify-center gap-6 sm:flex-row">
+                    <a
+                        href="#"
+                        target="_blank"
+                        class="border-teal text-teal hover:bg-teal hover:text-cream inline-block rounded-full border px-12 py-3 font-semibold tracking-widest uppercase shadow-sm transition-colors duration-300"
+                    >
+                        Crate &amp; Barrel
+                    </a>
+                    <a
+                        href="#"
+                        target="_blank"
+                        class="border-teal text-teal hover:bg-teal hover:text-cream inline-block rounded-full border px-12 py-3 font-semibold tracking-widest uppercase shadow-sm transition-colors duration-300"
+                    >
+                        Zola
+                    </a>
+                </div>
+            </section>
+        </Card>
+    </div>
 </template>
 
 <script lang="ts">
 import Card from '../WeddingCard.vue';
+
 export default {
-  name: 'RegistryPage',
-  components: { Card },
+    name: 'RegistryPage',
+    components: { Card },
 };
 </script>
