@@ -29,7 +29,7 @@
         <footer class="text-center py-12 px-6 border-t border-teal/20 mt-16">
             <div class="w-16 h-px bg-teal/50 mx-auto mb-6"></div>
             <p class="text-teal font-serif text-2xl">Z &amp; D</p>
-            <p class="text-gray-500 text-sm mt-2">October 5, 2025</p>
+            <p class="text-gray-500 text-sm mt-2">October 4, 2025</p>
         </footer>
     </div>
 </template>
