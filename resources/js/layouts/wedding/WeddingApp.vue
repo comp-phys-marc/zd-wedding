@@ -100,7 +100,7 @@ export default {
         const formData = new FormData();
         formData.append('name', this.guestName);
         formData.append('message', this.guestMessage);
-        const response = await fetch('https://formspree.io/f/mdkzpwyq', {
+        const response = await fetch('http://www.zdwedding.com/guestbook', {
           method: 'POST',
           body: formData,
           headers: { Accept: 'application/json' },
