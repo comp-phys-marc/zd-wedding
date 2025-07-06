@@ -6,6 +6,7 @@
                 <p class="mt-2 text-gray-600">Leave us a message to commemorate our special day.</p>
             </div>
             <form id="guestbook-form" action="https://www.zdwedding.com/guestbook" method="POST" @submit.prevent="submitGuestbook">
+                <input type="hidden" name="_token" :value="csrf">
                 <div class="space-y-6">
                     <div>
                         <label for="guestName" class="mb-1 block text-sm font-medium text-gray-700">Your Name(s)</label>
@@ -64,6 +65,7 @@ export default {
     name: 'GuestbookPage',
     data() {
         return {
+            csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             guestName: '',
             guestMessage: '',
             guestbookEntries: [],
