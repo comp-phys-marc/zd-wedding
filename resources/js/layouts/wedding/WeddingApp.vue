@@ -87,7 +87,7 @@ export default {
     },
     imgFallback(event, text) {
       event.target.onerror = null;
-      event.target.src = `https://placehold.co/1200x800/F7F4EC/6B979A?text=${text}`;
+      event.target.src = `https://placehold.co/1200x800/F7F4EC/0F5298?text=${text}`;
     },
     async submitGuestbook() {
       if (!this.guestName.trim() || !this.guestMessage.trim()) return;
@@ -145,22 +145,22 @@ body {
 }
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Cormorant Garamond', serif;
-  color: #6B979A;
+  color: #0F5298;
 }
 .bg-cream {
   background-color: #F7F4EC;
 }
 .bg-teal {
-  background-color: #6B979A;
+  background-color: #0F5298;
 }
 .text-teal {
-  color: #6B979A;
+  color: #0F5298;
 }
 .text-cream {
   color: #F7F4EC;
 }
 .border-teal {
-  border-color: #6B979A;
+  border-color: #0F5298;
 }
 #header-container {
   position: sticky;
@@ -258,13 +258,13 @@ body.scrolled #site-nav ul {
 }
 .nav-link.active {
   color: #F7F4EC;
-  background-color: #6B979A;
-  border-color: #6B979A;
+  background-color: #0F5298;
+  border-color: #0F5298;
   transform: translateY(0);
   box-shadow: none;
 }
 .nav-link.active:hover {
-  background-color: #6B979A;
+  background-color: #0F5298;
   transform: translateY(0);
   box-shadow: none;
 }
@@ -297,6 +297,6 @@ body.scrolled #site-nav ul {
 }
 .form-input:focus {
   outline: none;
-  border-color: #6B979A;
+  border-color: #0F5298;
 }
 </style>
